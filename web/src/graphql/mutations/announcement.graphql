@@ -1,0 +1,5 @@
+mutation createAnnouncement($url: String!) {
+  createAnnouncement(url: $url) {
+    id
+  }
+}

@@ -1,10 +1,11 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Announcement } from "../entities/Announcement";
-import * as serv from "../scrapper/scrapperService";
 @Resolver()
 export class AnnouncementResolver {
   @Query(() => [Announcement])
-  async announcements(): Promise<Announcement[]> {
+  async announcements(): // @Arg("limit") limit: number,
+  // @Arg("offset") offset: number
+  Promise<Announcement[]> {
     return Announcement.find();
   }
   @Query(() => Announcement, { nullable: true })
@@ -26,7 +27,7 @@ export class AnnouncementResolver {
   }
   @Mutation(() => Announcement)
   async createAnnouncement(@Arg("url") url: string): Promise<Announcement> {
-    await scrapeName(url, callback({}));
+    // await scrapeName(url, callback({}));
     return Announcement.create({ url }).save();
   }
   @Mutation(() => Boolean)
