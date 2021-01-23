@@ -1,5 +1,6 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Announcement } from "../entities/Announcement";
+import * as serv from "../scrapper/scrapperService";
 @Resolver()
 export class AnnouncementResolver {
   @Query(() => [Announcement])
@@ -25,6 +26,7 @@ export class AnnouncementResolver {
   }
   @Mutation(() => Announcement)
   async createAnnouncement(@Arg("url") url: string): Promise<Announcement> {
+    await scrapeName(url, callback({}));
     return Announcement.create({ url }).save();
   }
   @Mutation(() => Boolean)
