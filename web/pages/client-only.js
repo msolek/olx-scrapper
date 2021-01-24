@@ -2,7 +2,7 @@ import App from '../components/App'
 import InfoBox from '../components/InfoBox'
 import Header from '../components/Header'
 import Submit from '../components/Submit'
-import PostList from '../components/PostList'
+import AnnouncementListList from '../components/AnnouncementList'
 
 const ClientOnlyPage = (props) => (
   <App>
@@ -14,7 +14,7 @@ const ClientOnlyPage = (props) => (
       doesn't have SEO requirements or blocking data fetching requirements.
     </InfoBox>
     <Submit />
-    <PostList />
+    <AnnouncementListList />
   </App>
 )
 

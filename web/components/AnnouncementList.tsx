@@ -10,6 +10,8 @@ export const ALL_ANNOUNCEMENTS_QUERY = gql`
     announcements {
       id
       url
+      createdAt
+      updatedAt
     }
   }
 `;
@@ -45,6 +47,11 @@ export default function AnnouncementListList() {
               <div>
                 <span>{index + 1}. </span>
                 <a href={announcement.id}>{announcement.url}</a>
+                <p>
+                  {" "}
+                  Created date: {announcement.createdAt}, updated:{" "}
+                  {announcement.updatedAt}
+                </p>
               </div>
             </li>
           ))}
