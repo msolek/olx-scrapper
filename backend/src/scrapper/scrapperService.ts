@@ -9,7 +9,7 @@ export const scrapeName = async (url: String, callback: any | null) => {
     (element: any) => element.outerHTML
   );
   const titleParsed = await titleElement.replace(/<[^>]*>/g, "");
-  let imgURL = "";
+  let imgURL = null;
   try {
     imgURL = await page.$eval(".bigImage", (e: any) => e.src);
   } catch (err) {
@@ -22,16 +22,16 @@ export const scrapeName = async (url: String, callback: any | null) => {
 };
 
 export const checkIsActive = async (url: string): Promise<boolean> => {
-  var active = true;
+  var active = false;
   const browser = await puppeteer.launch();
   const page = await browser.newPage();
   await page.goto(url);
   try {
-    const x = await page.$eval(
+    const auctionDeactivatedElement = await page.$eval(
       "#offer_removed_by_user strong",
       (element: any) => element
     );
-    if (x) {
+    if (auctionDeactivatedElement) {
       active = false;
     }
   } catch {
