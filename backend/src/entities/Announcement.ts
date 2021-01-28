@@ -33,6 +33,10 @@ export class Announcement extends BaseEntity {
   description: string | null;
 
   @Field()
+  @Column("boolean", { default: true })
+  isActive: boolean = true;
+
+  @Field()
   @CreateDateColumn({ type: "timestamp" })
   createdAt: Date;
 

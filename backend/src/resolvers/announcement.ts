@@ -1,7 +1,7 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Announcement } from "../entities/Announcement";
-import { scrapeName } from "../scrapper/scrapperService";
+import { scrapeName, checkIsActive } from "../scrapper/scrapperService";
 
 //TODO:pagination
 @Resolver()
@@ -40,13 +40,15 @@ export class AnnouncementResolver {
   async createAnnouncement(
     @Arg("url") url: string,
     name: string,
-    img: string
+    img: string,
+    isActive: boolean
   ): Promise<Announcement> {
+    isActive = await checkIsActive(url);
     await scrapeName(url, function (callback: any) {
       name = callback.title;
       img = callback.imgURL;
     });
-    return Announcement.create({ url, name, img }).save();
+    return Announcement.create({ url, name, img, isActive }).save();
   }
   @Mutation(() => Boolean)
   async deleteAnnouncement(@Arg("id") id: number): Promise<boolean> {
