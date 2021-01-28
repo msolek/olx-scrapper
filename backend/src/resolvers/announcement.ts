@@ -1,5 +1,6 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { Announcement } from "../entities/Announcement";
+import { scrapeName } from "../scrapper/scrapperService";
 @Resolver()
 export class AnnouncementResolver {
   @Query(() => [Announcement])
@@ -26,9 +27,16 @@ export class AnnouncementResolver {
     return ann;
   }
   @Mutation(() => Announcement)
-  async createAnnouncement(@Arg("url") url: string): Promise<Announcement> {
-    // await scrapeName(url, callback({}));
-    return Announcement.create({ url }).save();
+  async createAnnouncement(
+    @Arg("url") url: string,
+    name: string,
+    img: string
+  ): Promise<Announcement> {
+    await scrapeName(url, function (callback: any) {
+      name = callback.title;
+      img = callback.imgURL;
+    });
+    return Announcement.create({ url, name, img }).save();
   }
   @Mutation(() => Boolean)
   async deleteAnnouncement(@Arg("id") id: number): Promise<boolean> {

@@ -15,12 +15,6 @@ export const ALL_ANNOUNCEMENTS_QUERY = gql`
     }
   }
 `;
-
-// export const allPostsQueryVars = {
-//   skip: 0,
-//   first: 10,
-// };
-
 export default function AnnouncementListList() {
   const { loading, error, data, networkStatus } = useQuery(
     ALL_ANNOUNCEMENTS_QUERY,

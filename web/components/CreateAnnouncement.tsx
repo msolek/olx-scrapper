@@ -45,10 +45,10 @@ export default function CreateAnnouncement() {
 
   return (
     <form onSubmit={handleSubmit}>
-      <h1>Submit</h1>
+      <h1>Add new announcement</h1>
       <input placeholder="url" name="url" type="url" required />
       <button type="submit" disabled={loading}>
-        Submit
+        Add
       </button>
       <style jsx>{`
         form {
