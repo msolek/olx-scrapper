@@ -1,13 +1,23 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
+import { getConnection } from "typeorm";
 import { Announcement } from "../entities/Announcement";
 import { scrapeName } from "../scrapper/scrapperService";
+
+//TODO:pagination
 @Resolver()
 export class AnnouncementResolver {
   @Query(() => [Announcement])
   async announcements(): // @Arg("limit") limit: number,
   // @Arg("offset") offset: number
   Promise<Announcement[]> {
-    return Announcement.find();
+    //return Announcement.find();
+    const qb = getConnection()
+      .getRepository(Announcement)
+      .createQueryBuilder("p")
+      .orderBy('p."createdAt"', "DESC")
+      .take();
+    const annnouncements = await qb.getMany();
+    return annnouncements;
   }
   @Query(() => Announcement, { nullable: true })
   async announcement(

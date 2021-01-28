@@ -22,11 +22,11 @@ export class Announcement extends BaseEntity {
   url: string;
 
   @Field()
-  @Column("varchar", { nullable: true })
+  @Column("varchar")
   name: string;
 
   @Field()
-  @Column("varchar", { nullable: true })
+  @Column("varchar")
   img: string;
 
   @Column("text", { nullable: true })
