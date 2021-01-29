@@ -10,6 +10,11 @@ export const ALL_ANNOUNCEMENTS_QUERY = gql`
     announcements {
       id
       url
+      name
+      img
+      userProfile
+      description
+      isActive
       createdAt
       updatedAt
     }
@@ -40,7 +45,22 @@ export default function AnnouncementListList() {
             <li key={announcement.id}>
               <div>
                 <span>{index + 1}. </span>
-                <a href={announcement.id}>{announcement.url}</a>
+                <a href={announcement.id}>{announcement.name}</a>
+                {announcement.isActive == false && (
+                  <p>
+                    {" "}
+                    announcement is not avaialbe{" "}
+                    <a href={announcement.userProfile}>
+                      check other user's announcements
+                    </a>{" "}
+                  </p>
+                )}
+                <img
+                  src={announcement.img}
+                  alt=""
+                  height="100px"
+                  width="100px"
+                ></img>
                 <p>
                   {" "}
                   Created date: {announcement.createdAt}, updated:{" "}
