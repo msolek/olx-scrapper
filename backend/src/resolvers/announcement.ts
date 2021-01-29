@@ -4,6 +4,7 @@ import { Announcement } from "../entities/Announcement";
 import {
   scrapeName,
   checkIsAnnouncementActive,
+  getUserProfile,
 } from "../scrapper/scrapperService";
 
 //TODO:pagination
@@ -44,14 +45,22 @@ export class AnnouncementResolver {
     @Arg("url") url: string,
     name: string,
     img: string,
-    isActive: boolean
+    isActive: boolean,
+    userProfile: string | undefined
   ): Promise<Announcement> {
+    userProfile = await getUserProfile(url);
     isActive = await checkIsAnnouncementActive(url);
     await scrapeName(url, function (callback: any) {
       name = callback.title;
       img = callback.imgURL;
     });
-    return Announcement.create({ url, name, img, isActive }).save();
+    return Announcement.create({
+      url,
+      name,
+      img,
+      isActive,
+      userProfile,
+    }).save();
   }
   @Mutation(() => Boolean)
   async deleteAnnouncement(@Arg("id") id: number): Promise<boolean> {

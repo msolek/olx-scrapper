@@ -1,3 +1,5 @@
+import { profile } from "console";
+
 const puppeteer = require("puppeteer");
 
 export const scrapeName = async (url: String, callback: any | null) => {
@@ -19,6 +21,24 @@ export const scrapeName = async (url: String, callback: any | null) => {
   title = title.trim();
   await browser.close();
   callback({ title, imgURL });
+};
+export const getUserProfile = async (
+  url: string
+): Promise<string | undefined> => {
+  let userProfile = null;
+
+  const browser = await puppeteer.launch();
+  const page = await browser.newPage();
+  await page.goto(url);
+  try {
+    userProfile = await page.$eval(
+      ".offer-user__actions h4 a",
+      (element: any) => element.href
+    );
+  } finally {
+    browser.close();
+  }
+  return userProfile;
 };
 
 export const checkIsAnnouncementActive = async (

@@ -29,8 +29,13 @@ export class Announcement extends BaseEntity {
   @Column("varchar")
   img: string;
 
-  @Column("text", { nullable: true })
-  description: string | null;
+  @Field()
+  @Column("varchar", { nullable: true })
+  description: string;
+
+  @Field()
+  @Column("varchar", { nullable: true })
+  userProfile: string;
 
   @Field()
   @Column("boolean", { default: true })
