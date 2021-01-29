@@ -10,12 +10,6 @@ const cron = require("node-cron");
 export const cronGetPriceForActiveAnnouncements = async () => {
   //cron every 5 minutes
   cron.schedule("*/5 * * * *", async function () {
-    // let activeAnnouncements = await getConnection()
-    //   .createQueryBuilder()
-    //   .select("announcement")
-    //   .from(Announcement, "announcement")
-    //   .where("announcement.isActive = true")
-    //   .getMany();
     const activeAnnouncements = await getActiveAnnouncements();
 
     for (const announcement of activeAnnouncements) {
@@ -54,13 +48,12 @@ export async function getActiveAnnouncements(): Promise<Announcement[]> {
     .getMany();
 }
 export async function setAnnouncementIsNotActive(id: number) {
-  const update = await getConnection()
+  await getConnection()
     .createQueryBuilder()
     .update(Announcement)
     .set({ isActive: false })
     .where("id = " + id)
     .execute();
-  console.log(update);
 }
 export const cronCheckIsAnnouncementActive = async () => {
   //cron every 10 minutes
