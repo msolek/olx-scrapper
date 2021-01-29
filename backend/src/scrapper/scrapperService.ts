@@ -21,7 +21,9 @@ export const scrapeName = async (url: String, callback: any | null) => {
   callback({ title, imgURL });
 };
 
-export const checkIsActive = async (url: string): Promise<boolean> => {
+export const checkIsAnnouncementActive = async (
+  url: string
+): Promise<boolean> => {
   var active = false;
   const browser = await puppeteer.launch();
   const page = await browser.newPage();

@@ -1,7 +1,10 @@
 import { Arg, Mutation, Query, Resolver } from "type-graphql";
 import { getConnection } from "typeorm";
 import { Announcement } from "../entities/Announcement";
-import { scrapeName, checkIsActive } from "../scrapper/scrapperService";
+import {
+  scrapeName,
+  checkIsAnnouncementActive,
+} from "../scrapper/scrapperService";
 
 //TODO:pagination
 @Resolver()
@@ -43,7 +46,7 @@ export class AnnouncementResolver {
     img: string,
     isActive: boolean
   ): Promise<Announcement> {
-    isActive = await checkIsActive(url);
+    isActive = await checkIsAnnouncementActive(url);
     await scrapeName(url, function (callback: any) {
       name = callback.title;
       img = callback.imgURL;
