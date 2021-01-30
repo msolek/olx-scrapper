@@ -1,0 +1,2 @@
+export const selectAnnouncementWithLatestPriceDetails =
+  'select a.*,  d1.* from announcement a  join announcement_data d1 on (a.id = "d1"."announcementId")  left outer join announcement_data d2 on ("a"."id" = "d2"."announcementId" and  ("d1"."details_createdAt" < "d2"."details_createdAt"  or ("d1"."details_createdAt" = "d2"."details_createdAt"  and "d1"."details_id" < "d2"."details_id"))) where "d2"."details_id" is null order by "a"."updatedAt" DESC;';

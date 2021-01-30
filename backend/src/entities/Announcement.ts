@@ -22,11 +22,24 @@ export class Announcement extends BaseEntity {
   url: string;
 
   @Field()
-  @Column("varchar", { nullable: true })
+  @Column("varchar")
   name: string;
 
-  @Column("text", { nullable: true })
-  description: string | null;
+  @Field({ nullable: true })
+  @Column("varchar")
+  img: string;
+
+  @Field({ nullable: true })
+  @Column("varchar", { nullable: true })
+  description: string;
+
+  @Field({ nullable: true })
+  @Column("varchar", { nullable: true })
+  userProfile: string;
+
+  @Field()
+  @Column("boolean", { default: true })
+  isActive: boolean = true;
 
   @Field()
   @CreateDateColumn({ type: "timestamp" })
@@ -36,6 +49,10 @@ export class Announcement extends BaseEntity {
   @UpdateDateColumn({ type: "timestamp" })
   updatedAt: Date;
 
-  @OneToMany(() => AnnouncementData, (announcementId) => announcementId.id)
-  announcementDatas: AnnouncementData[];
+  @Field()
+  @OneToMany(
+    () => AnnouncementData,
+    (announcementId) => announcementId.details_id
+  )
+  details: AnnouncementData;
 }

@@ -7,12 +7,19 @@ import { ApolloServer } from "apollo-server-express";
 import { buildSchema } from "type-graphql";
 import { HelloResolver } from "./resolvers/hello";
 import { AnnouncementResolver } from "./resolvers/announcement";
+import {
+  cronGetPriceForActiveAnnouncements,
+  cronCheckIsAnnouncementActive,
+} from "./utils/cron";
+
 //import { AnnouncementResolver } from "./resolvers/announcement";
 
 const main = async () => {
   const conn = await createConnection(ormconfig);
   await conn.runMigrations();
   const app = express();
+  await cronGetPriceForActiveAnnouncements();
+  await cronCheckIsAnnouncementActive();
   const apolloServer = new ApolloServer({
     schema: await buildSchema({
       resolvers: [HelloResolver, AnnouncementResolver],
