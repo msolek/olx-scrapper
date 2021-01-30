@@ -50,6 +50,9 @@ export class Announcement extends BaseEntity {
   updatedAt: Date;
 
   @Field()
-  @OneToMany(() => AnnouncementData, (announcementId) => announcementId.id)
+  @OneToMany(
+    () => AnnouncementData,
+    (announcementId) => announcementId.details_id
+  )
   details: AnnouncementData;
 }
