@@ -1,27 +1,46 @@
-import { Arg, Mutation, Query, Resolver } from "type-graphql";
-import { getConnection } from "typeorm";
+import {
+  Arg,
+  FieldResolver,
+  Mutation,
+  Query,
+  Resolver,
+  Root,
+} from "type-graphql";
+import { getManager } from "typeorm";
 import { Announcement } from "../entities/Announcement";
+import { selectAnnouncementWithLatestPriceDetails } from "../utils/queries";
 import {
   scrapeName,
   checkIsAnnouncementActive,
   getUserProfile,
 } from "../scrapper/scrapperService";
+import { AnnouncementData } from "../entities/AnnouncementData";
 
 //TODO:pagination
-@Resolver()
+
+@Resolver((of) => Announcement)
 export class AnnouncementResolver {
   @Query(() => [Announcement])
   async announcements(): // @Arg("limit") limit: number,
   // @Arg("offset") offset: number
   Promise<Announcement[]> {
     //return Announcement.find();
-    const qb = getConnection()
-      .getRepository(Announcement)
-      .createQueryBuilder("p")
-      .orderBy('p."createdAt"', "DESC")
-      .take();
-    const annnouncements = await qb.getMany();
-    return annnouncements;
+    // const qb = getConnection()
+    //   .getRepository(Announcement)
+    //   .createQueryBuilder("p")
+    //   .orderBy('p."createdAt"', "DESC")
+    //   .take();
+
+    const qb = await getManager().query(
+      selectAnnouncementWithLatestPriceDetails
+    );
+    console.log(qb);
+    return qb;
+  }
+
+  @FieldResolver(() => AnnouncementData)
+  async details(@Root() announcement: Announcement) {
+    return announcement;
   }
   @Query(() => Announcement, { nullable: true })
   async announcement(

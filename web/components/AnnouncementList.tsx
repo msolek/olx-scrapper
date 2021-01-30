@@ -43,7 +43,7 @@ export default function AnnouncementListList() {
         <ul>
           {announcements.map((announcement, index) => (
             <li key={announcement.id}>
-              <div>
+              <div className="announcement-div">
                 <span>{index + 1}. </span>
                 <a href={announcement.id}>{announcement.name}</a>
                 {announcement.isActive == false && (
@@ -61,11 +61,7 @@ export default function AnnouncementListList() {
                   height="100px"
                   width="100px"
                 ></img>
-                <p>
-                  {" "}
-                  Created date: {announcement.createdAt}, updated:{" "}
-                  {announcement.updatedAt}
-                </p>
+                <p> Created date: {announcement.createdAt}</p>
               </div>
             </li>
           ))}
@@ -83,6 +79,9 @@ export default function AnnouncementListList() {
         div {
           align-items: center;
           display: flex;
+        }
+        .announcement-div {
+          background-color: red;
         }
         a {
           font-size: 14px;

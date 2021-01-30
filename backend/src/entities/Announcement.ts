@@ -49,6 +49,7 @@ export class Announcement extends BaseEntity {
   @UpdateDateColumn({ type: "timestamp" })
   updatedAt: Date;
 
+  @Field()
   @OneToMany(() => AnnouncementData, (announcementId) => announcementId.id)
-  announcementDatas: AnnouncementData[];
+  details: AnnouncementData;
 }
