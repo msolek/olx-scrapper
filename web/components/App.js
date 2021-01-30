@@ -9,15 +9,19 @@ export default function App({ children }) {
             monospace, serif;
         }
         body {
+          background: #222831;
+          text: #00000;
+          toggleBorder: #6B8096;
           margin: 0;
           padding: 25px 50px;
         }
         a {
-          color: #22bad9;
+          color: #00adb5;
         }
         p {
           font-size: 14px;
           line-height: 24px;
+          color:#eeeeee;
         }
         article {
           margin: 0 auto;

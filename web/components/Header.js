@@ -25,6 +25,7 @@ export default function Header() {
           font-size: 14px;
           margin-right: 15px;
           text-decoration: none;
+          
         }
         .is-active {
           text-decoration: underline;

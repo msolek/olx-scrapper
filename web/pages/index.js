@@ -9,8 +9,7 @@ import { initializeApollo, addApolloState } from '../lib/apolloClient'
 const IndexPage = () => (
   <App>
     <Header />
-    <InfoBox>ℹ️ This page shows how to use SSG with Apollo.</InfoBox>
-    <Submit />
+    <InfoBox>ℹ️ sdf</InfoBox>
     <CreateAnnouncement/>
     <AnnouncementList />
   </App>

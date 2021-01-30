@@ -8,6 +8,7 @@ const InfoBox = ({ children }) => (
         padding-bottom: 20px;
         border-top: 1px solid #ececec;
         border-bottom: 1px solid #ececec;
+        color:#eeeeee;
       }
     `}</style>
     {children}

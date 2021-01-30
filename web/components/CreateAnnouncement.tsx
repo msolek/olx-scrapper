@@ -58,6 +58,7 @@ export default function CreateAnnouncement() {
         }
         h1 {
           font-size: 20px;
+          color: #eeeeee;
         }
         input {
           display: block;

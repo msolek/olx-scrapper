@@ -10,13 +10,17 @@ export const ALL_ANNOUNCEMENTS_QUERY = gql`
     announcements {
       id
       url
+      createdAt
       name
       img
       userProfile
       description
       isActive
-      createdAt
-      updatedAt
+      details {
+        details_id
+        price
+        details_createdAt
+      }
     }
   }
 `;
@@ -52,16 +56,19 @@ export default function AnnouncementListList() {
                     announcement is not avaialbe{" "}
                     <a href={announcement.userProfile}>
                       check other user's announcements
-                    </a>{" "}
+                    </a>
                   </p>
                 )}
-                <img
-                  src={announcement.img}
-                  alt=""
-                  height="100px"
-                  width="100px"
-                ></img>
-                <p> Created date: {announcement.createdAt}</p>
+
+                <p> Last Price: {announcement.details.price}</p>
+                <div className="image-div">
+                  <img
+                    src={announcement.img}
+                    alt=""
+                    height="100px"
+                    width="100px"
+                  ></img>
+                </div>
               </div>
             </li>
           ))}
@@ -74,14 +81,18 @@ export default function AnnouncementListList() {
         }
         li {
           display: block;
-          margin-bottom: 10px;
+          margin-bottom: 15px;
         }
         div {
           align-items: center;
           display: flex;
         }
         .announcement-div {
-          background-color: red;
+          background-color: #393e46;
+        }
+        .image-div {
+          margin-left: auto;
+          margin-right: 15%;
         }
         a {
           font-size: 14px;
