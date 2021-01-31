@@ -6,7 +6,7 @@ import {
   Resolver,
   Root,
 } from "type-graphql";
-import { getManager } from "typeorm";
+import { getConnection, getManager, getRepository } from "typeorm";
 import { Announcement } from "../entities/Announcement";
 import { selectAnnouncementWithLatestPriceDetails } from "../utils/queries";
 import {
@@ -34,7 +34,6 @@ export class AnnouncementResolver {
     const qb = await getManager().query(
       selectAnnouncementWithLatestPriceDetails
     );
-    console.log(qb);
     return qb;
   }
 
@@ -42,6 +41,14 @@ export class AnnouncementResolver {
   async details(@Root() announcement: Announcement) {
     return announcement;
   }
+  @Query(() => [Announcement])
+  async notActiveAnnouncements(): Promise<Announcement[] | null> {
+    const qb = await Announcement.getRepository().find({
+      where: { isActive: false },
+    });
+    return qb;
+  }
+
   @Query(() => Announcement, { nullable: true })
   async announcement(
     @Arg("id") id: number,
